@@ -1,0 +1,37 @@
+version: "3.3"
+
+services:
+  # django:
+  #   image: django:local
+  #   container_name: django
+  #   ports:
+  #    - '8000:8000'
+  #   command: 'python manage.py runserver 0.0.0.0:8000'
+  #   env_file: local.env
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile
+  #   depends_on:
+  #     - db
+  #   # network_mode: host
+
+  martin:
+    image: urbica/martin
+    restart: unless-stopped
+    ports:
+      - 3000:3000
+    environment:
+      - WATCH_MODE=true
+      - DATABASE_URL=postgres://postgres:password@localhost:5432/db
+    depends_on:
+      - db
+    network_mode: host
+
+  db:
+    container_name: 'db'
+    image: postgis/postgis:13-3.1-alpine
+    restart: unless-stopped
+    env_file: local.env
+    volumes:
+      - ./pg_data:/var/lib/postgresql/data
+    network_mode: host
