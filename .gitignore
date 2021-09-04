@@ -129,3 +129,4 @@ dmypy.json
 .pyre/
 
 pg_data/
+temp/

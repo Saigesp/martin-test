@@ -30,3 +30,9 @@ python manage.py runserver 0.0.0.0:8000
 2. Create a Country instance
 
 3. Navigate to `http://localhost:8000/test/leaflet/`
+
+
+## Import data
+```
+python manage.py import world
+```
