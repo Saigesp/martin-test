@@ -1,0 +1,42 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Martin & Leaflet</title>
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+
+    <!-- dependencies -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
+    <script src="https://leaflet-extras.github.io/leaflet-providers/leaflet-providers.js"></script>
+    <script src="https://unpkg.com/leaflet.vectorgrid@latest/dist/Leaflet.VectorGrid.bundled.js"></script>
+
+    <style>
+      html, body { height: 100%; }
+      body {
+        margin: 0;
+      }
+      #map { height: 100%; }
+    </style>
+
+  </head>
+  <body>
+    <div id="map"></div>
+
+    <script>
+      var map = L.map('map').setView([40, -5], 5);
+      L.tileLayer.provider('CartoDB.Positron').addTo(map);
+      L.vectorGrid
+        .protobuf('http://localhost:3000/public.world_country/{z}/{x}/{y}.pbf', {
+          vectorTileLayerStyles: {
+            'public.world_country': {
+              color: 'red',
+              fill: true,
+            },
+          },
+        })
+        .addTo(map);
+    </script>
+
+  </body>
+</html>
